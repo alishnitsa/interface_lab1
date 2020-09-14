@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Лаба 1</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+   <h1>Лабораторная работа №1</h1>
+   <h2>Вариант №3 (Группа Е). Словесная форма и пиктограммы. Размер</h2>
+   <h3>Гипотезы</h3>
+   <ul>
+      <li>Мелкий шрифт хуже воспринимается</li>
+      <li>В столбик лучше запоминается</li>
+      <li>Словесно запонимается лучше</li>
+   </ul>
+   <select name="word-form" id="word-form">
+      <option value="Словесная форма">Словесная форма</option>
+      <option value="Пиктограммы">Пиктограммы</option>
+   </select>
+   <br>
+   <select id="column-row-form">
+      <option value="Колонка">Колонка</option>
+      <option value="Строка">Строка</option>
+   </select>
+   <br>
+   <select id="size">
+      <option value="m">Маленький</option>
+      <option value="s">Средний</option>
+      <option value="b">Большой</option>
+   </select>
+   <br>
+   <input type="button" value="Старт" onclick="start()">
+   <hr>
+
+   <div id="output"></div>
+   <div id="input"></div>
+   <script src="main.js"></script>
+</body>
+
+</html>
