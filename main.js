@@ -1,3 +1,5 @@
+let g_counter = 0;
+
 const start = () => {
    let lenght_array = 6;//Количество чисел
 
@@ -10,14 +12,16 @@ const start = () => {
    column_row = document.getElementById("column-row-form").value;
    size = document.getElementById("size").value;
 
+   let nums_arr = generate(lenght_array);
+
    /*----------- Условия вывода ---------*/
    if (word == "Словесная форма") {
       if (column_row == "Строка") {
-         output = generate(lenght_array).map(verbal_form).join(' ');
+         output = nums_arr.map(verbal_form).join(' ');
          document.getElementById("output").innerHTML = output;
       }
       else if (column_row == "Колонка") {
-         output = generate(lenght_array).map(verbal_form).join('<br>');
+         output = nums_arr.map(verbal_form).join('<br>');
          document.getElementById("output").innerHTML = output;
       }
       switch (size) {
@@ -35,11 +39,11 @@ const start = () => {
 
    else if (word == "Пиктограммы") {
       if (column_row == "Строка") {
-         output = generate(lenght_array).map(pictogram_form).join(' ');
+         output = nums_arr.map(pictogram_form).join(' ');
          document.getElementById("output").innerHTML = output;
       }
       else if (column_row == "Колонка") {
-         output = generate(lenght_array).map(pictogram_form).join('<br>');
+         output = nums_arr.map(pictogram_form).join('<br>');
          document.getElementById("output").innerHTML = output;
       }
       switch (size) {
@@ -60,18 +64,43 @@ const start = () => {
    }
    /*------------------------*/
 
-   setTimeout(clear, 10000); //Очистка блока output через 10 сек 
-
-   setTimeout(return_back, 20000); //Возвращение блока output через 20 сек
+   setTimeout(clear, 5000, nums_arr);
 
 }
 
-const clear = () => { //Очистка блока output
-   document.getElementById("output").style.display = 'none';
+
+function clear(nums_arr) { //Очистка output и добавление поля ввода и кнопки
+   document.getElementById("output").innerHTML = '';
+   document.getElementById("output").innerHTML = "<input type='number' id='input' >";
+   inp = document.getElementById("input");
+   // inp = document.createElement('input');
+   // inp.id = 'input';
+
+   //document.createElement("<input type='number' id='input'>");
+
+   document.getElementById('output').appendChild(inp);
+   var btn = document.createElement('button');
+   var textInBtn = document.createTextNode('Проверить');
+   btn.appendChild(textInBtn);
+   btn.onclick = btnClick.bind(btn, nums_arr);
+   document.getElementById('output').appendChild(btn);
 }
 
-const return_back = () => { //Возвращение блока output
-   document.getElementById("output").style.display = 'block';
+function btnClick(nums_arr) { //Вывод ошибок и очистка output
+   let answer = document.getElementById("input").value.split('');
+   if (answer.length != 6) {
+      alert("Неверно введены данные")
+      return;
+
+   }
+
+   for (let i = 0; i < answer.length; i++) {
+      if (nums_arr.indexOf(Number.parseInt(answer[i])) != i) {
+         g_counter++;
+      }
+   }
+   document.getElementById("output").innerHTML = '';
+   document.getElementById("counter").innerHTML = "Ошибок: " + g_counter;
 }
 
 const generate = (lenght_array) => { // Генерация массива чисел
